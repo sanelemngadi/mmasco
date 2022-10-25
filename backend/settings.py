@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=&cq=@bv_1ojo65p&593w)-^f045b)d9#yu%j=%ooh1(!h(hyh'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', config('SITEHOST')]
 
 
 # Application definition
@@ -127,24 +128,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email settings
-# EMAIL_HOST = 'smtp.office365.com'
-# # EMAIL_HOST = 'smtpout.secureserver.net'
-# EMAIL_PORT = '587 ' #465 or 587
-# EMAIL_HOST_USER='private.socialworker@xolanibukhosini.co.za'
-# EMAIL_HOST_PASSWORD='xolanibukhosini'
-# EMAIL_USE_TLS=True
-# EMAIL_USE_SSL=False
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtpout.secureserver.net'
-# EMAIL_HOST = 'smtp.office365.com'
-# EMAIL_HOST_USER = 'hello@sanelemngadi.com'
-EMAIL_HOST_USER = 'private.socialworker@xolanibukhosini.co.za'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# EMAIL_HOST_PASSWORD = 'Sisanda$360'
-EMAIL_HOST_PASSWORD = 'xolanibukhosini'
-EMAIL_PORT = 465
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 
@@ -154,5 +143,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://mmasco.co.za",
     "https://www.xolanibukhosini.co.za",
     "https://xolanibukhosini.co.za",
-    "http://127.0.0.1:3000"
+    config('CORS1'),
+    config('CORS2'),
 ]

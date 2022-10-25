@@ -3,20 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.conf import settings
 
-from django.core.mail import send_mail, EmailMessage
-
-def emails_view(request):
-    return Response({"error: ": "faild"}, status=status.HTTP_200_OK)    
-
-    # {
-    #     "name":"Sanele Mngadi",
-    #     "email_owner": "sanelemngadi17@gmail.com",
-    #     "email_user":"218014972@stu.ukzn.ac.za",
-    #     "subject":"Trauma caunselling",
-    #     "message":"Hi this is sanele mngadi I send this email because I want to book for an appointment",
-    #     "greetings": "Good morning Sanele"
-    # }
-
+from django.core.mail import EmailMessage
 
 class EmailCreateView(APIView):
     def post(self, request):
@@ -45,9 +32,8 @@ class EmailCreateView(APIView):
             email_msg = EmailMessage(
                 subject, # subject
                 msg, # message
-                "private.socialworker@xolanibukhosini.co.za", # email from
-                ["sanelemngadi17@gmail.com"], # email to []
-                # reply_to=["sanelemngad17@gmail.com"]
+                 settings.EMAIL_HOST_USER, # email from
+                [data["email_owner"]], # email to []
             )
             email_msg.send()
             return Response(data,status=status.HTTP_200_OK)
